@@ -1,7 +1,9 @@
 #!/bin/bash
+
 SESSION="nexus"
 LOG_DIR="/tmp/nexus_logs"
-NODE_LIST="$HOME/nodes.txt"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+NODE_LIST="$SCRIPT_DIR/nodes.txt"
 NODES_PER_WINDOW=4
 
 mkdir -p "$LOG_DIR"
