@@ -57,13 +57,13 @@ source ~/.bashrc
 
 ### 3. Edit `nodes.txt`
 ```bash
-nano ~/nodes.txt
+nano nodes.txt
 ```
 Edit and fill with your NodeID's 
 
 ### 4. Make it executable:
 ```bash
-chmod +x ~/launch_nodes.sh
+chmod +x launch_nodes.sh
 ```
 
 ### 5. (Optional) Add Swap for RAM-Limited Systems
@@ -100,7 +100,7 @@ whoami
 ### 7. Run the Nodes
 
 ```bash
-bash ~/launch_nodes.sh
+bash launch_nodes.sh
 tmux attach-session -t nexus
 ```
 See Multiple Windows on tmux `Ctrl+B`, Then `N` for next and `P` for previous.
