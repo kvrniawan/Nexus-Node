@@ -22,6 +22,12 @@ This guide explains how to run multiple Nexus nodes locally on Ubuntu or VPS . I
 - Internet connection
 
 ---
+## Clone this repository
+
+```bash
+git clone https://github.com/kvrniawan/Nexus-Node.git
+cd Nexus-Node
+```
 
 ## Step-by-Step Setup
 
