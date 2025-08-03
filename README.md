@@ -30,6 +30,8 @@ This guide explains how to run multiple Nexus nodes locally on Ubuntu or VPS . I
 ```bash
 sudo apt update && sudo apt upgrade -y
 sudo apt install curl tmux build-essential net-tools htop sysstat -y
+sudo apt install build-essential pkg-config libssl-dev git-all
+sudo apt install protobuf-compiler
 ```
 
 ---
