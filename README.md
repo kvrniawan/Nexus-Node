@@ -1,6 +1,7 @@
+
 # Run Multiple Nexus Nodes on Ubuntu
 
-This guide explains how to run multiple Nexus nodes locally on Ubuntu or VPS . Ideal for those with limited resources who still want to participate in testing and scaling Nexus infrastructure.
+This guide explains how to run multiple Nexus nodes locally on Ubuntu or VPS. Ideal for those with limited resources who still want to participate in testing and scaling the Nexus infrastructure.
 
 ---
 
@@ -22,6 +23,7 @@ This guide explains how to run multiple Nexus nodes locally on Ubuntu or VPS . I
 - Internet connection
 
 ---
+
 ## Clone this repository
 
 ```bash
@@ -29,15 +31,15 @@ git clone https://github.com/kvrniawan/Nexus-Node.git
 cd Nexus-Node
 ```
 
+---
+
 ## Step-by-Step Setup
 
 ### 1. Update and Install Required Tools
 
 ```bash
 sudo apt update && sudo apt upgrade -y
-sudo apt install curl tmux build-essential net-tools htop sysstat -y
-sudo apt install build-essential pkg-config libssl-dev git-all
-sudo apt install protobuf-compiler
+sudo apt install curl tmux build-essential net-tools htop sysstat pkg-config libssl-dev git protobuf-compiler -y
 ```
 
 ---
@@ -55,18 +57,27 @@ echo 'export PATH="$HOME/.nexus/bin:$PATH"' >> ~/.bashrc
 source ~/.bashrc
 ```
 
+---
+
 ### 3. Edit `nodes.txt`
+
 ```bash
 nano nodes.txt
 ```
-Edit and fill with your NodeID's.
 
-Save with `Ctrl+X` then `Y` and enter
+Fill this file with your Node IDs (one per line).
 
-### 4. Make it executable:
+Save with `Ctrl+O` then `Enter`, exit with `Ctrl+X`.
+
+---
+
+### 4. Make the launcher script executable
+
 ```bash
 chmod +x launch_nodes.sh
 ```
+
+---
 
 ### 5. (Optional) Add Swap for RAM-Limited Systems
 
@@ -88,48 +99,91 @@ sudo sysctl vm.vfs_cache_pressure=50
 echo 'vm.vfs_cache_pressure=50' | sudo tee -a /etc/sysctl.conf
 ```
 
-
-### 6. Edit Nexus Service (Optional For Autostart when launch)
-```bash
-sudo nano /etc/systemd/system/nexus.service
-```
-Edit <YOUR_USERNAME> and fill with your username
-
-to get your username 
-```bash
-whoami
-```
-### 7. Run the Nodes
-
-```bash
-bash launch_nodes.sh
-tmux attach-session -t nexus
-```
-After doing this step if your terminal freezed just type `Ctrl+C` then enter.
-And do this again too see what running
-```bash
-tmux attach-session -t nexus
-```
-
-See Multiple Windows on tmux `Ctrl+B`, Then `N` for next and `P` for previous.
-
-Detach: `Ctrl+B`, then `D`
-
 ---
-Do this step if you doing on step 6, just skip if you don't.
+
+### 6. Edit Nexus Service (Optional For Autostart on Boot)
+
+This step is optional.  
+If you want Nexus nodes to start automatically when your system boots, configure the systemd service as shown below.  
+If you already have this set up or don’t need autostart, you can skip this step.
 
 ```bash
-sudo systemctl daemon-reexec
+sudo cp ~/Nexus-Node/nexus.service /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable nexus
 sudo systemctl start nexus
 ```
 
-### 8. Stop all process
+---
+
+### 7. Run the Nodes Manually (if not using systemd autostart)
+
+```bash
+bash launch_nodes.sh
+tmux attach-session -t nexus
+```
+
+If the terminal freezes, press `Ctrl+C` and then run:
+
+```bash
+tmux attach-session -t nexus
+```
+
+To navigate tmux windows:
+
+- Next window: `Ctrl+B`, then `N`  
+- Previous window: `Ctrl+B`, then `P`  
+- Detach session: `Ctrl+B`, then `D`
+
+---
+
+### 8. To Stop All Nodes
+
+If running via systemd:
+
 ```bash
 sudo systemctl stop nexus
 ```
+
+If running manually, just exit tmux or kill the session:
+
+```bash
+tmux kill-session -t nexus
+```
+
 ---
+
+### 9. Managing Node IDs (Adding or Removing Nodes)
+
+If you want to add or remove node IDs in `nodes.txt`, **stop the Nexus service first**:
+
+```bash
+sudo systemctl stop nexus
+```
+
+Edit the file:
+
+```bash
+nano ~/Nexus-Node/nodes.txt
+```
+
+After saving changes, restart the service:
+
+```bash
+sudo systemctl start nexus
+```
+
+Check status:
+
+```bash
+sudo systemctl status nexus
+```
+
+*Always stop the service before editing `nodes.txt` to avoid duplicate nodes or conflicts.*
+
+---
+
 ## Credits
 
 Made with ❤️ for the Nexus community.
+
