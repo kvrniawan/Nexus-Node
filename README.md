@@ -59,7 +59,8 @@ source ~/.bashrc
 ```bash
 nano nodes.txt
 ```
-Edit and fill with your NodeID's 
+Edit and fill with your NodeID's
+Save with `Ctrl+X` then `Y` and enter
 
 ### 4. Make it executable:
 ```bash
