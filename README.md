@@ -105,9 +105,18 @@ whoami
 bash launch_nodes.sh
 tmux attach-session -t nexus
 ```
+After doing this step if your terminal freezed just type `Ctrl+C` then enter.
+And do this again too see what running
+```bash
+tmux attach-session -t nexus
+```
+
 See Multiple Windows on tmux `Ctrl+B`, Then `N` for next and `P` for previous.
 
 Detach: `Ctrl+B`, then `D`
+
+---
+Do this step if you doing on step 6, just skip if you don't.
 
 ```bash
 sudo systemctl daemon-reexec
@@ -116,11 +125,11 @@ sudo systemctl enable nexus
 sudo systemctl start nexus
 ```
 
-### 6. Stop all process
+### 8. Stop all process
 ```bash
 sudo systemctl stop nexus
 ```
-
+---
 ## Credits
 
 Made with ❤️ for the Nexus community.
