@@ -3,12 +3,12 @@ Description=Nexus Node Launcher
 After=network.target
 
 [Service]
-User=YOUR_USERNAME
-WorkingDirectory=/home/YOUR_USERNAME
-ExecStart=/bin/bash /home/YOUR_USERNAME/launch_nodes.sh
+User=%u
+WorkingDirectory=/home/%u/Nexus-Node
+ExecStart=/bin/bash /home/%u/Nexus-Node/launch_nodes.sh
 Restart=always
 RestartSec=5
-Environment=PATH=/home/YOUR_USERNAME/.nexus/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+Environment=PATH=/home/%u/.nexus/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 [Install]
 WantedBy=multi-user.target
